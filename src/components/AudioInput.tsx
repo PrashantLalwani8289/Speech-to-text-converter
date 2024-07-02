@@ -6,6 +6,7 @@ const AudioInput = () => {
     const [file, setFile] = useState<File | null>(null);
     const [transcription, setTranscription] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0] || null;
@@ -23,7 +24,7 @@ const AudioInput = () => {
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
-
+        setLoading(true);
         if (!file) {
             setError("Please select a file to upload.");
             return;
@@ -44,8 +45,10 @@ const AudioInput = () => {
             console.log(response.data.transcription)
             setTranscription(response.data.transcription);
             setError("");
+            setLoading(false)
         } catch (error: any) {
             setError(error.message);
+            setLoading(false)
             setTranscription("");
         }
     };
@@ -58,6 +61,7 @@ const AudioInput = () => {
             </form>
             {transcription && <div><strong>Transcription:</strong> <p>{transcription}</p></div>}
             {error && <div><strong>Error:</strong> <p>{error}</p></div>}
+            {loading && <div><strong>Loading...</strong></div>}
         </div>
     );
 };
