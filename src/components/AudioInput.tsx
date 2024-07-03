@@ -3,6 +3,17 @@ import axios from 'axios';
 import { useState, ChangeEvent, FormEvent } from 'react';
 
 const AudioInput = () => {
+    const trascriptionText: React.CSSProperties = {
+        display: 'grid',
+        placeItems:'center',
+        // height: '60px',
+        backgroundColor: '#2a2a2a',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: 'bold',
+      };
+
+
     const [file, setFile] = useState<File | null>(null);
     const [transcription, setTranscription] = useState<string>("");
     const [error, setError] = useState<string>("");
@@ -54,14 +65,17 @@ const AudioInput = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div style={{display:"grid", placeItems:"center"}}>
+            <form onSubmit={handleSubmit} style={{display:'flex' , gap:'2rem', marginBottom:'3rem'}}>
                 <input type="file" accept="audio/*" onChange={handleFileChange} />
-                <button type="submit">Upload and Transcribe</button>
+                <button type="submit" style={{width:'200px',border:'2px solid black', borderRadius:'20px', backgroundColor:'#2a2a2a', fontSize:'19px', padding:'5px'}}>{loading ? "loading" : "Upload and convert"}</button>
+
             </form>
-            {transcription && <div><strong>Transcription:</strong> <p>{transcription}</p></div>}
+            <div style={{borderRadius:"20px"}}>
+            {transcription && <div style={trascriptionText}><strong>Transcription:</strong> <p style={{position:"relative", border:'2px solid black', borderRadius:'20px', padding:'2rem'}}>{transcription}</p></div>}
             {error && <div><strong>Error:</strong> <p>{error}</p></div>}
             {loading && <div><strong>Loading...</strong></div>}
+            </div>
         </div>
     );
 };

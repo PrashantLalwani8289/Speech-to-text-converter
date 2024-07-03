@@ -1,13 +1,24 @@
-import React from 'react'
-const Navbar = () => {
-  return (
-    <nav className='py-2 flex items-center h-6 border-emerald-600'>
-        <div className='flex-1 flex items-center justify-center sm:justify-start text-2 border-black'>
-            Speech to Text Converter
-        </div>
-        
-    </nav>
-  )
-}
+import React from 'react';
 
-export default Navbar
+const Navbar: React.FC = () => {
+  const navbarStyle: React.CSSProperties = {
+    width:"100vw",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '60px',
+    backgroundColor: '#2a2a2a',
+    color: 'white',
+    fontSize: '24px',
+    fontWeight: 'bold',
+    marginBottom:'3rem'
+  };
+
+  return (
+    <div style={navbarStyle}>
+      Speech to text Converter
+    </div>
+  );
+};
+
+export default Navbar;
